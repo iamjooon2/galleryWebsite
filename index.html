@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="js/script.js"></script>
+
+</head>
+
+<body onload="init()">
+    <header>
+        <a class="logo" href="#">test</a>
+        <nav class="nav">
+            <ul>
+                <li class="gallery on" onclick="setMenu('gallery')">사진들 보기</li>
+                <li class="upload" onclick="setMenu('upload')">사진 올리기</li>
+                <li class="myinfo" onclick="setMenu('myinfo')">내 정보</li>
+            </ul>
+        </nav>
+        <a class="account" href="#">Logout</a>
+    </header>
+    <main class="gallery">
+        <aside>
+            <div class="dep _gallery option-title">보기 옵션</div>
+            <div class="dep _upload option-title">사진 올리기</div>
+            <div class="dep _myinfo option-title">내 정보</div>
+            <ul id="sorts" class="dep _gallery">
+                <li class="recent on" onclick="setSort('recent')">최신순 보기</li>
+                <li class="like" onclick="setSort('like')">좋아요 순 보기</li>
+            </ul>
+            <ul id="filters" class="dep _gallery">
+                <li class="all on" onclick="setFilter('all')">전체 사진</li>
+                <li class="mine" onclick="setFilter('mine')">내 사진</li>
+                <li class="like" onclick="setFilter('like')">좋아요 한 사진</li>
+                <li class="follow" onclick="setFilter('follow')">팔로우 회원 사진</li>
+            </ul>
+            <div id="backToGallery" 
+                class="dep _detail option-title" 
+                onclick="setMenu('gallery')">
+                뒤로가기
+            </div>
+        </aside>
+        <div class="content">
+
+            <section id="intro" class="dep _gallery ">
+                <h1>T E S T</h1>
+                <p>test</p>
+            </section>
+
+            <article class="hidden">
+                <ul class="photo"></ul>
+                <div class="info">
+                    <div class="like"></div>
+                    <div class="author"></div>
+                    <div class="desc">
+                    </div>
+                </div>
+            </article>
+
+            <section id="gallery" class="dep _gallery ">
+            </section>
+
+            <section id="upload" class="dep _upload">
+                <div class="instruction">사진을 업로드하세요!</div>
+                <input class="description" 
+                type="text" 
+                maxlength="20" 
+                placeholder="사진 설명을 20자 이내로 적어주세요."
+                    onkeyup="setDescLength()" />
+                <span class="descLength">0/20</span>
+                <br>
+                <input type="file" />
+                <br>
+                <br>
+                <div class="button" onclick="uploadFile();">업로드</div>
+            </section>
+            <section id="myinfo" class="dep _myinfo">
+                <div class="non-edit">
+                    <table>
+                        <tr>
+                            <td>아이디</td>
+                            <td id="myInfoId"></td>
+                        </tr>
+                        <tr>
+                            <td>사용자명</td>
+                            <td id="myInfoUserName"></td>
+                        </tr>
+                        <tr>
+                            <td>소개</td>
+                            <td class="introduction">
+                                <input id="ip-intro" class="mi-dep edit" type="text" maxlength="30" />
+                                <span id="sp-intro" class="mi-dep non-edit"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>취미/전문</td>
+                            <td>
+                                <input id="hobby" type="radio" name="as" value="hobby" disabled />
+                                <label for="hobby">취미</label>
+                                <input id="pro" type="radio" name="as" value="pro" disabled />
+                                <label for="pro">전문가</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>흥미</td>
+                            <td>
+                                <input class="cb-interest" id="football" type="checkbox" value="football" disabled />
+                                <label for="football"> 축구</label>
+                                <input class="cb-interest" id="JS" type="checkbox" value="JS" disabled />
+                                <label for="JS">JS</label>
+                                <input class="cb-interest" id="guitar" type="checkbox" value="guitar" disabled />
+                                <label for="guitar">기타</label>
+                                <input class="cb-interest" id="thing" type="checkbox" value="thing" disabled />
+                                <label for="thing">etc</label>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="mi-dep non-edit button" onclick="setEditMyInfo(true);">수정</div>
+                    <div class="mi-dep edit button" onclick="updateMyInfo()">확인</div>
+                    <div class="mi-dep edit button cancel" onclick="setEditMyInfo(false)">취소</div>
+                </div>
+            </section>
+            <section id="detail" class="dep _detail">
+                <div class="photo"></div>
+                <div class="author"></div>
+                <div class="desc"></div>
+                <br>
+                <input id = "comment-input" type = "text" placeholder = "댓글을 써주세염" onkeyup ="keyEnter();">
+                <div id = "comment-submit-button" onclick = "uploadComment();">올리기</div>
+                <div id = "comments"></div>
+                <br>
+
+            </section>
+
+        </div>
+        <a class="write" onclick="setMenu('upload')">
+            <div></div>
+        </a>
+    </main>
+    <footer>
+        <ul>
+            <li><a href="https://github.com/junheeyeap/" target="_blank">gitHub</a></li>
+            <li><a href="https://junheeyeap.tistory.com/" target="_blank">Blog</a></li>
+            <li><a href="https://ko.wikipedia.org/wiki/HTTP_404">résumé</a></li>
+            <li><a href="https://ko.wikipedia.org/wiki/HTTP_404">etc</a></li>
+        </ul>
+    </footer>
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-storage.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="./js/firebaseInfo.js"></script>
+</body>
+
+</html>
