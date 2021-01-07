@@ -176,7 +176,6 @@ function toggleLike(idx) {
       }
     } //좋뺌
   }
-  //showPhotos();
 }
 
 function toggleLikeOnDB(photo) {
@@ -190,7 +189,7 @@ function toggleLikeOnDB(photo) {
     });
   });
 }
-//then - 어떤 영역 서버 보낸 다음, 실행되는 부분이 then 안에 있음
+//then - 서버에 보낸 다음 실행 되는 부분
 
 
 
